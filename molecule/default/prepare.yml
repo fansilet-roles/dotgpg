@@ -1,0 +1,17 @@
+---
+- name: Prepare Fedora
+  hosts: f41
+  gather_facts: false
+  pre_tasks:
+    - name: Installing Python
+      ansible.builtin.raw: dnf -y install python3 libselinux python3-libdnf5
+
+- name: Prepare All
+  hosts: all
+  gather_facts: false
+  tasks:
+
+    - name: Installing Packages
+      ansible.builtin.dnf:
+        name:
+          - sudo
