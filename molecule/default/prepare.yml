@@ -9,9 +9,28 @@
 - name: Prepare All
   hosts: all
   gather_facts: false
-  tasks:
-
+  pre_tasks:
     - name: Installing Packages
       ansible.builtin.dnf:
         name:
           - sudo
+
+  tasks:
+    - name: Adding Dummy User
+      ansible.builtin.user:
+        name: foo
+        shell: /bin/bash
+        groups: wheel
+
+    - name: Ensuring sudoers entries were created
+      ansible.builtin.copy:
+        content: |-
+          %wheel    ALL=(ALL)   NOPASSWD:ALL
+        dest: /etc/sudoers.d/wheel
+        mode: 0640
+        owner: root
+        group: root
+        validate: /usr/sbin/visudo -csf %s
+
+
+

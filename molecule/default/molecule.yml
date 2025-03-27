@@ -5,9 +5,13 @@ platforms:
   - name: cs9
     image: quay.io/centos/centos:stream9
     pre_build_image: true
+    extra_ops:
+      - --user foo
   - name: f41
     image: quay.io/fedora/fedora:41
     pre_build_image: true
+    extra_ops:
+      - --user foo
 provisioner:
   name: ansible
 verifier:

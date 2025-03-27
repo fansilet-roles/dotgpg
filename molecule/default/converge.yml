@@ -2,5 +2,7 @@
 - name: Converge
   hosts: all
   gather_facts: false
+  environment:
+    LOGNAME: root
   roles:
     - fansilet.dotfiles.dotgpg
